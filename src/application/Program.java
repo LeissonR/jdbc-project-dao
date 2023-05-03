@@ -15,15 +15,15 @@ public class Program {
 
 		System.out.println("---x--- TEST 1: seller findById ---x---");
 		Seller seller = sellerDao.findById(3);
-
 		System.out.println(seller);
 
 		System.out.println("\n---x--- TEST 2: seller findByDepartment ---x---");
-
 		Department department = new Department(2, null);
-
 		List<Seller> list = sellerDao.findByDepartment(department);
+		list.forEach(System.out::println);
 
+		System.out.println("\n---x--- TEST 3: seller findAll ---x---");
+		list = sellerDao.findAll();
 		list.forEach(System.out::println);
 
 	}

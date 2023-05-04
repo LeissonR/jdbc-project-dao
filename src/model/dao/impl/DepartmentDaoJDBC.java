@@ -104,7 +104,7 @@ public class DepartmentDaoJDBC implements DepartmentDao{
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			st = conn.prepareStatement("SELECT department.* FROM department WHERE department.Id = ?");
+			st = conn.prepareStatement("SELECT * FROM department WHERE Id = ?");
 			st.setInt(1, id);
 
 			rs = st.executeQuery();
@@ -116,7 +116,7 @@ public class DepartmentDaoJDBC implements DepartmentDao{
 		return null;
 		} 
 		catch (SQLException e) {
-			throw new DbException("Department id not exist!");
+			throw new DbException("Department id not exist: " + e.getMessage());
 		} 
 		finally {
 			DB.closeStatement(st);
@@ -128,12 +128,13 @@ public class DepartmentDaoJDBC implements DepartmentDao{
 	public List<Department> findAll() {
 		PreparedStatement st = null;
 		ResultSet rs = null;
-		List<Department> dep = new ArrayList<>();
+		
 		
 		try {
-			st = conn.prepareStatement("SELECT department.* FROM department ");
-			
+			st = conn.prepareStatement("SELECT * FROM department ORDER BY Name");
 			rs = st.executeQuery();
+			
+			List<Department> dep = new ArrayList<>();
 			
 			while (rs.next()) {
 				dep.add(new Department(rs.getInt("Id"), rs.getString("Name")));
@@ -141,7 +142,7 @@ public class DepartmentDaoJDBC implements DepartmentDao{
 		return dep;
 		} 
 		catch (SQLException e) {
-			throw new DbException("Department wasn't printed!");
+			throw new DbException("Department wasn't printed: " + e.getMessage());
 		} 
 		finally {
 			DB.closeStatement(st);

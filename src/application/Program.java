@@ -32,6 +32,11 @@ public class Program {
 		sellerDao.insert(newSeller);
 		System.out.println("Inserted! New id = " + newSeller.getId());
 		
+		System.out.println("\n---x--- TEST 5: seller update ---x---");
+		seller = sellerDao.findById(1);
+		seller.setName("Hex Grug");
+		sellerDao.update(seller);
+		System.out.println("Seller Update completed");
 	}
 
 }
